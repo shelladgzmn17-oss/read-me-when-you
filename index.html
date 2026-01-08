@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For my babyyy 💖</title>
+
   <style>
     body {
       margin: 0;
@@ -11,21 +12,50 @@
       background: linear-gradient(135deg, #ffd6e8, #ffeef6);
       color: #333;
       min-height: 100vh;
+      overflow-x: hidden;
     }
+
+    /* FLOATING HEARTS */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
     header {
       text-align: center;
       padding: 40px 20px;
     }
+
     header h1 {
       font-size: 2.5rem;
       margin-bottom: 10px;
       color: #c9184a;
     }
+
     header p {
       font-size: 1.1rem;
       max-width: 600px;
       margin: 0 auto;
     }
+
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -34,22 +64,32 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
+
     .card {
       background: white;
       border-radius: 20px;
       padding: 20px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-align: center;
     }
+
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.15);
     }
+
     .card h3 {
-      margin-top: 0;
+      margin: 0;
       color: #d6336c;
     }
+
+    .card img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
     .modal {
       position: fixed;
       top: 0;
@@ -61,20 +101,26 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      z-index: 1000;
     }
+
     .modal-content {
       background: #fff;
-      max-width: 600px;
+      max-width: 650px;
       width: 100%;
       border-radius: 20px;
       padding: 30px;
       position: relative;
       animation: fadeIn 0.3s ease;
+      line-height: 1.6;
+      white-space: pre-wrap;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
+
     .close {
       position: absolute;
       top: 15px;
@@ -83,27 +129,61 @@
       cursor: pointer;
       color: #999;
     }
-    .close:hover { color: #333; }
+
+    .close:hover {
+      color: #333;
+    }
+
     footer {
       text-align: center;
       padding: 30px 20px;
       font-size: 0.9rem;
       color: #555;
     }
+
+    audio {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
+
 <body>
+
+  <!-- FLOATING HEARTS -->
+  <script>
+    const heartEmojis = ["💖","💗","💘","💕","💞"];
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+      heart.style.fontSize = 16 + Math.random() * 20 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+    setInterval(createHeart, 500);
+  </script>
+
   <header>
     <h1>For my babyyy 💖</h1>
-    <p>Hi my love. This little website is a small piece of my heart, made just for you. Every word, every photo, and every moment here exists because you exist. I hope whenever you open this, you feel how deeply you are loved, appreciated, and chosen—always.</p>
+    <p>
+      This little website is a small piece of my heart, made just for you.
+      I hope whenever you open this, you feel how deeply you are loved.
+    </p>
   </header>
 
   <section class="container">
-    <div class="card"><img src="photos/us1.jpg" style="width:100%; border-radius:15px;" /></div>
-    <div class="card"><img src="photos/us2.jpg" style="width:100%; border-radius:15px;" /></div>
-    <div class="card"><img src="photos/us3.jpg" style="width:100%; border-radius:15px;" /></div>
-    <div class="card"><img src="photos/us4.jpg" style="width:100%; border-radius:15px;" /></div>
 
+    <!-- PHOTOS -->
+    <div class="card"><img src="photos/us1.jpg"></div>
+    <div class="card"><img src="photos/us2.jpg"></div>
+    <div class="card"><img src="photos/us3.jpg"></div>
+    <div class="card"><img src="photos/us4.jpg"></div>
+
+    <!-- MESSAGE CARDS -->
     <div class="card" onclick="openModal(0)"><h3>Read me when you first receive this</h3></div>
     <div class="card" onclick="openModal(1)"><h3>Read me when you miss me</h3></div>
     <div class="card" onclick="openModal(2)"><h3>Read me when you need motivation</h3></div>
@@ -119,6 +199,7 @@
 
   </section>
 
+  <!-- MODAL -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -127,7 +208,7 @@
   </div>
 
   <footer>
-    <audio controls autoplay loop style="width:100%; max-width:300px;">
+    <audio controls loop>
       <source src="music/iris.mp3" type="audio/mpeg">
     </audio>
     <p>Made with so much love, just for you 💕</p>
@@ -135,59 +216,56 @@
 
   <script>
     const messages = [
+`This website is a small piece of my heart, made for you. Every word in here exists because you exist. I hope you feel how much you are loved, appreciated, and valued. You mean more to me than words can ever fully explain, and this is just a reminder of that.`,
 
-      `If you’re reading this, I want you to know that I miss you too, especially the quiet moments when we cuddle and forget about the world. Close your eyes and imagine me hugging you tightly. That’s where I am right now.`,
+`If you’re reading this, I want you to know that I miss you too, especially the quiet moments when we cuddle and forget about the world. Close your eyes and imagine me hugging you tightly. That’s where I am right now.`,
 
-      `Hi baby, please think about how far you’ve come and how many times you’ve made me proud without even trying. You’ve already overcome so much, and this moment is no different. I believe in you, even on the days you don’t believe in yourself. Take things one step at a time. You don’t need to be perfect, you just need to keep going. I’m so proud of you, always.`,
+`Hi baby, please think about how far you’ve come and how many times you’ve made me proud without even trying. You’ve already overcome so much, and this moment is no different. I believe in you, even on the days you don’t believe in yourself. Take things one step at a time. You don’t need to be perfect, you just need to keep going. I’m so proud of you, always.`,
 
-      `Hi baby, breathe for a second. It’s okay to feel this way. Your feelings are valid, and you don’t have to carry them alone, you always have me. Whatever your mind is telling you right now, remember this: you are loved, you matter, and you are enough. Breathe slowly. This feeling will pass, and I’ll still be here. I will love you until the end of my life—on easy days and hard ones, always.`,
+`Hi baby, breathe for a second. It’s okay to feel this way. Your feelings are valid, and you don’t have to carry them alone, you always have me. Whatever your mind is telling you right now, remember this: you are loved, you matter, and you are enough. Breathe slowly. This feeling will pass, and I’ll still be here, I will love you until the end of my life. on easy days and hard ones, when things are quiet or messy, always remember that my heart will always choose you.`,
 
-      `Hi baby ko! Please always remember that you are never alone. I’m always with you. Remember how it feels when we cuddle? Safe, warm, and calm. That’s how I feel about you all the time. Even when I’m not there, my love is always with you. BIG BIG HUGGGGG 🤍`,
+`Hi baby ko! please always remember that you are never alone, i’m always with you, remember how it feels when we cuddle? it feels like safe, warm and calm, and that’s how i feel about you all the time. even when i’m not there, my love is always with you, quietly reminding you that you matter so much. BIG BIG HUGGGGG PLS`,
 
-      `I know things can get overwhelming, and it’s okay to feel angry or upset. Pause for a moment. Breathe. Remember how our bahay dates calm us down? That’s how just being together makes everything feel lighter. I’m always here, ready to listen and understand you. KISS PLS 😘`,
+`I know things can get overwhelming, and it’s okay to feel angry or upset. Pause for a moment. Breathe. Remember how our bahay dates calm us down? that’s how just being together makes everything feel lighter. This feeling will pass. You’re allowed to feel upset, but don’t forget that I’m always here, ready to listen and understand you. KISS PLS`,
 
-      `Hi baby, don’t forget to drink your meds please! I wish I could be right there taking care of you. Rest well and be gentle with yourself. You don’t need to be strong right now, just focus on getting better. Get well soon, my love. I miss you so muchhh!`,
+`Hi baby, don’t forget to drink ur meds pls! I wish I could be right there taking care of you. Please rest and be gentle with yourself. You don’t need to be strong right now, just focus on getting better. Get well soon, my love. I miss youuu so muchhh!`,
 
-      `Hi my handsome babyyy, you are so attractive in ways you don’t even realize. The way you laugh, your corny jokes (HAHAHAHA), and the way you make me feel safe just being myself. Everything about you feels special to me. I LOVE YOU BIG TIME!`,
+`Hi my handsome babyy, you are so attractive in ways you don’t even realize. The way you laugh, your corny jokes HAHAHAHA (Your smile can literally change my entire day) and ofc, the way you make me feel comfortable just being myself, everything about you feels special to me. I LOVE BIG TIME!`,
 
-      `I choose you. Over and over again. On good days and bad days, in calm moments and hard ones. You are important to me, and what we have is real and worth holding onto. I LOVE YOU SO MUCHHH, MY HUBBYY!!`,
+`I choose you. Over and over again. On good days and bad days, in calm moments and hard ones. You are important to me, and what we have is real and worth holding onto. I LOVE YOU SO MUCHHH, MY HUBBYY!!`,
 
-      `Hi baby, I know we’re not good today. There are days we argue and days when things feel heavy. But one thing will never change—I will always love you. I will always choose to fix things with you, not walk away. You are the person I want to love forever.`,
+`Hi baby, I know we’re not good today. There are days we argue, days we feel tired, and days when things don’t feel perfect. But one thing will never change, I will always love you. No matter how hard the day is, at the end of it, my heart still chooses you. I will always choose to fix things with you, not walk away. Through good times and bad times, through laughter and tears, you are still the person I want to love forever.`,
 
-      `Anong tawag sa medyas na sakto lang? Edi socks lang 😂
+`anong tawag sa medyas na sakto lang? edi socks lang HAHAHAHSHABHAHAHA
 
-Pa’no mapapa-cold yung fire? Edi baliktarin mo 🔥
+pa’no mapapa cold yung fire? edi baliktarin mo HABABAHHAAHHAAHHA
 
-Anong number ang nagpapanic? Edi UNOO 😭
+anong number ang nagpapanic? edi UNOO
 
-Ano kasunod ng earth? Edi showtime 🤣
+ano kasunod ng earth? edi showtime HAHAHAHAHAHAH
 
-Anong tawag sa tissue na sweet? Edi imissue 🥹`
-
-      `This website is a small piece of my heart, made for you. Every word in here exists because you exist. I hope you feel how much you are loved, appreciated, and valued. You mean more to me than words can ever fully explain, and this is just a reminder of that.`,
+anong tawag sa tissue na sweet? edi imissue HhaHAHAHAHUHUHU`
     ];
 
     function openModal(index) {
-      document.getElementById('modalText').innerText = messages[index];
-      document.getElementById('modal').style.display = 'flex';
+      document.getElementById("modalText").innerText = messages[index];
+      document.getElementById("modal").style.display = "flex";
     }
 
     function closeModal() {
-      document.getElementById('modal').style.display = 'none';
+      document.getElementById("modal").style.display = "none";
     }
 
     function openFinal() {
-      document.getElementById('modalText').innerHTML = `<h2 style='color:#c9184a'>I love you, Ej 🤍</h2>
-      <p>There’s no perfect ending to this website, because my love for you doesn’t end. I just want you to know that choosing you was one of the easiest and best decisions of my life.</p>
-      <p>No matter where life takes us, no matter how many changes come our way, my heart will always find its way back to you. You are my safe place, my comfort, my favorite person.</p>
-      <p>I love you more than words, more than pages, more than this little website could ever hold.</p>
-      <p><strong>Always yours,<br>Shella 💕</strong></p>`;
-      document.getElementById('modal').style.display = 'flex';
+      document.getElementById("modalText").innerHTML = `
+        <h2 style="color:#c9184a">I love you 🤍</h2>
+        <p>There’s no perfect ending to this website, because my love for you doesn’t end.</p>
+        <p>You are my safe place, my comfort, my favorite person.</p>
+        <p><strong>Always yours 💕</strong></p>
+      `;
+      document.getElementById("modal").style.display = "flex";
     }
   </script>
+
 </body>
 </html>
-
-
-
-
